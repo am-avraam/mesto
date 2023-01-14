@@ -38,6 +38,7 @@ function handleFormSubmit(evt) {
   nameTitle.textContent = receivedName
   aboutTitle.textContent = receivedAbout
   popup.style.display = 'none'
+  page.style.overflow = 'scroll'
 }
 
 formElement.addEventListener('submit', handleFormSubmit)

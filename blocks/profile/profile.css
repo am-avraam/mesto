@@ -21,10 +21,11 @@
   margin-bottom: 16px;
   display: flex;
   gap: 18px;
-
+  max-width: 510px;
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
+  white-space: nowrap;
   overflow: hidden;
+  display: inline;
 }
 .profile__button {
   cursor: pointer;
@@ -54,6 +55,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  display: inline;
 }
 .profile__button_add {
   position: relative;
