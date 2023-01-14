@@ -26,7 +26,7 @@ display: block;
   box-sizing: border-box;
   width: 430px;
   height: 330px;
-  position: fixed; 
+  position: fixed;
    top: calc(50% - 330px / 2);
    left: calc(50% - 430px / 2);
   background: #FFFFFF;
@@ -36,7 +36,6 @@ display: block;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
 }
 
 .popup__title {

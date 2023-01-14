@@ -19,7 +19,6 @@
   line-height: 48px;
   font-weight: 500;
   margin-bottom: 16px;
-  display: flex;
   gap: 18px;
   max-width: 510px;
   text-overflow: ellipsis;
