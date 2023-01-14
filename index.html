@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="природа блог фото" />
+    <meta name="author" content="Амир К. gq.man@yandex.ru" />
+    <title>Mesto</title>
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
+  <body class="root">
+    <div class="page">
+      <header class="header">
+        <img src="./images/header/header-logo.svg" alt="логотип 'Mesto'" class="header__logo" />
+        <div class="header__divider"></div>
+      </header>
+
+      <main class="main">
+        <section class="profile">
+          <img src="./images/profile/avatar.png" alt="avatar" class="profile__avatar" />
+          <div class="profile__data-wrapper">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h2 class="profile__about">Исследователь океана</h2>
+          </div>
+          <button class="profile__button profile__button_edit"></button>
+          <button class="profile__button profile__button_add"></button>
+        </section>
+
+        <section class="places">
+          <ul class="places__list">
+            <li class="places__item">
+              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Карачаевск</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+
+            <li class="places__item">
+              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Гора Эльбрус</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+            <li class="places__item">
+              <img src="./images/places/Dombai.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Домбай</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+            <li class="places__item">
+              <img src="./images/places/Elbrus.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Гора Эльбрус</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+            <li class="places__item">
+              <img src="./images/places/Dombai.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Домбай</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+            <li class="places__item">
+              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
+              <div class="places__description">
+                <p class="places__name">Карачаево-Черкесия</p>
+                <button class="places__like"></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&copy;&nbsp;2022 Mesto Russia</p>
+      </footer>
+    </div>
+
+    <div class="popup">
+      <div class="popup__overlay"></div>
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form action="" class="popup__form">
+          <input type="text" class="popup__input popup__name" value="Жак-Ив Кусто" />
+          <input type="text" class="popup__input popup__about" value="Исследователь океана" />
+          <button class="popup__button popup__button_save">Сохранить</button>
+        </form>
+        <button class="popup__button popup__button_close"></button>
+      </div>
+    </div>
+
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>

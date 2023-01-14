@@ -1,0 +1,72 @@
+.places {
+  display: flex;
+  margin-top: 47.25px;
+  margin-bottom: 67px;
+}
+
+.places__list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  column-gap: 17px;
+  row-gap: 20px;
+}
+
+.places__item {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.places__image {
+  border-radius: 0px;
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  display: block;
+}
+
+.places__description {
+  height: 79px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 21px;
+  padding-right: 15px;
+}
+
+.places__name {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  max-width: 200px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.places__like {
+  background: url('./../../images/places/like.svg') no-repeat;
+  width: 22px;
+  height: 19px;
+  text-decoration: none;
+  border: none;
+  align-self: center;
+  cursor: pointer;
+}
+
+.places__like:hover {
+  opacity: 0.6;
+}
+
+.places__like:active {
+  opacity: 1;
+  background: url('./../../images/places/activeLike.png') no-repeat;
+}
+
+
+@media screen and (max-width: 768px) {
+
+}

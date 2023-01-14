@@ -1,0 +1,13 @@
+.root {
+
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  background: black;
+}
+
+@media screen and (max-width: 768px) {
+  .root {
+    overflow-x: hidden;
+  }
+}
