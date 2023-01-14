@@ -67,6 +67,13 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
+  .places {
+    margin-top: 36px;
+    margin-bottom: 48px;
+  }
 
+  .places__list {
+    justify-content: center;
+  }
 }

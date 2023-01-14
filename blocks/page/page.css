@@ -6,10 +6,10 @@
   color: #FFFFFF;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 890px) {
 .page {
   padding: 0 19px;
-  max-width: 768px;
+  max-width: 890px;
   box-sizing: border-box;
   }
 }

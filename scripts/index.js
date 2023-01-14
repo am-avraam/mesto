@@ -1,3 +1,4 @@
+const page = document.querySelector('html')
 const editButton = document.querySelector('.profile__button_edit')
 const closeButton = document.querySelector('.popup__button_close')
 const popup = document.querySelector('.popup')
@@ -12,8 +13,13 @@ const aboutTitle = document.querySelector('.profile__about')
 
 const clickHandler = (evt) => {
   evt.preventDefault()
-  if (popup.style.display === 'block') popup.style.display = 'none'
-  else popup.style.display = 'block'
+  if (popup.style.display === 'block') {
+    popup.style.display = 'none'
+    page.style.overflow = 'scroll'
+  } else {
+    popup.style.display = 'block'
+    page.style.overflow = 'hidden'
+  }
 
   if (evt.target.classList.contains('popup__button_close')) {
     nameInput.value = nameTitle.textContent
