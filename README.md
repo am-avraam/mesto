@@ -1,8 +1,8 @@
 # Проект: Место
 
-## Ссылка на Vercel
+## Ссылка на GH Pages
 
-[Click](https://todo-app-bay.vercel.app/ 'Come on')
+[Click](https://am-avraam.github.io/mesto/ 'Come on')
 
 ### Функционал
 
