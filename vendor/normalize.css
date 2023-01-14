@@ -13,9 +13,6 @@
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-@media screen and (max-width: 768px) {
-  html {overflow-x: hidden;}
-}
 
 /* Sections
    ========================================================================== */
