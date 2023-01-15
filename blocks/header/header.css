@@ -10,23 +10,23 @@
   display: block;
 }
 
-.header__divider {
-  height: 0px;
+.header::after {
+  content: '';
+  display: block;
   width: 880px;
   opacity: 0.7;
-  border: 1px solid #545454;
+  border-bottom: 1px solid #545454;
   margin-top: 40px;
 }
 
-
 @media screen and (max-width: 890px) {
-  .header__divider {
-  margin-top: 32px;
-  margin-left: -18px;
-  width: calc(100% + 36px);
+  .header::after {
+    margin-top: 32px;
+    margin-left: -18px;
+    width: calc(100% + 36px);
   }
 
   .header__logo {
-  margin: 28px 0 0 8px;
+    margin: 28px 0 0 8px;
   }
 }

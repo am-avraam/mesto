@@ -5,40 +5,37 @@ const popup = document.querySelector('.popup')
 
 const formElement = document.querySelector('.popup__form')
 
-const nameInput = document.querySelector('.popup__name')
-const jobInput = document.querySelector('.popup__about')
+const nameInput = document.querySelector('.popup__input_field_name')
+const jobInput = document.querySelector('.popup__input_field_about')
 
 const nameTitle = document.querySelector('.profile__name')
 const aboutTitle = document.querySelector('.profile__about')
 
-const clickHandler = (evt) => {
+const openPopup = (evt) => {
   evt.preventDefault()
-  if (popup.style.display === 'block') {
-    popup.style.display = 'none'
-    page.style.overflow = 'scroll'
-  } else {
-    popup.style.display = 'block'
-    page.style.overflow = 'hidden'
-  }
 
-  if (evt.target.classList.contains('popup__button_close')) {
-    nameInput.value = nameTitle.textContent
-    jobInput.value = aboutTitle.textContent
-  }
+  popup.classList.add('popup_opened')
+  page.style.overflow = 'hidden'
 }
 
-editButton.addEventListener('click', clickHandler)
-closeButton.addEventListener('click', clickHandler)
-
-function handleFormSubmit(evt) {
+const closePopup = (evt) => {
   evt.preventDefault()
-  const receivedName = nameInput.value
-  const receivedAbout = jobInput.value
 
-  nameTitle.textContent = receivedName
-  aboutTitle.textContent = receivedAbout
-  popup.style.display = 'none'
+  nameInput.value = nameTitle.textContent
+  jobInput.value = aboutTitle.textContent
+
+  popup.classList.remove('popup_opened')
   page.style.overflow = 'scroll'
 }
 
+function handleFormSubmit(evt) {
+  evt.preventDefault()
+
+  nameTitle.textContent = nameInput.value
+  aboutTitle.textContent = jobInput.value
+  closePopup(evt)
+}
+
+editButton.addEventListener('click', openPopup)
+closeButton.addEventListener('click', closePopup)
 formElement.addEventListener('submit', handleFormSubmit)

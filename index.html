@@ -12,7 +12,6 @@
     <div class="page">
       <header class="header">
         <img src="./images/header/header-logo.svg" alt="логотип 'Mesto'" class="header__logo" />
-        <div class="header__divider"></div>
       </header>
 
       <main class="main">
@@ -22,8 +21,8 @@
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <h2 class="profile__about">Исследователь океана</h2>
           </div>
-          <button class="profile__button profile__button_edit"></button>
-          <button class="profile__button profile__button_add"></button>
+          <button type="button" class="profile__button profile__button_edit"></button>
+          <button type="button" class="profile__button profile__button_add"></button>
         </section>
 
         <div class="places">
@@ -32,7 +31,7 @@
               <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
               <div class="places__description">
                 <p class="places__name">Карачаевск</p>
-                <button class="places__like"></button>
+                <button type="button" class="places__like"></button>
               </div>
             </li>
 
@@ -81,15 +80,14 @@
     </div>
 
     <div class="popup">
-      <div class="popup__overlay"></div>
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form">
-          <input type="text" class="popup__input popup__name" value="Жак-Ив Кусто" />
-          <input type="text" class="popup__input popup__about" value="Исследователь океана" />
-          <button class="popup__button popup__button_save">Сохранить</button>
+        <form class="popup__form" name="popup-form">
+          <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто" />
+          <input name="about" type="text" class="popup__input popup__input_field_about" value="Исследователь океана" />
+          <button type="submit" class="popup__button popup__button_save">Сохранить</button>
         </form>
-        <button class="popup__button popup__button_close"></button>
+        <button type="button" class="popup__button popup__button_close"></button>
       </div>
     </div>
 
