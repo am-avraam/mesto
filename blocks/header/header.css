@@ -4,12 +4,6 @@
   margin-top: 45px;
 }
 
-.header__logo {
-  width: 142px;
-  height: 33px;
-  display: block;
-}
-
 .header::after {
   content: '';
   display: block;
@@ -24,9 +18,5 @@
     margin-top: 32px;
     margin-left: -18px;
     width: calc(100% + 36px);
-  }
-
-  .header__logo {
-    margin: 28px 0 0 8px;
   }
 }

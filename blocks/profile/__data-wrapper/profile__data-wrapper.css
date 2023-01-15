@@ -1,13 +1,10 @@
-.profile {
-  margin: 0 auto;
+.profile__data-wrapper {
   display: flex;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 890px) {
-
-  .profile {
-    flex-direction: column;
+  .profile__data-wrapper {
     align-items: center;
   }
-
 }
