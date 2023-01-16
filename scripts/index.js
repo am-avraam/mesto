@@ -11,19 +11,15 @@ const jobInput = document.querySelector('.popup__input_field_about')
 const nameTitle = document.querySelector('.profile__name')
 const aboutTitle = document.querySelector('.profile__about')
 
-const openPopup = (evt) => {
-  evt.preventDefault()
-
+const openPopup = () => {
   popup.classList.add('popup_opened')
-  page.style.overflow = 'hidden'
-}
-
-const closePopup = (evt) => {
-  evt.preventDefault()
+  page.style.overflow = 'hidden' // инициативу проявлять запрещено? почему это лишний код?
 
   nameInput.value = nameTitle.textContent
   jobInput.value = aboutTitle.textContent
+}
 
+const closePopup = () => {
   popup.classList.remove('popup_opened')
   page.style.overflow = 'scroll'
 }

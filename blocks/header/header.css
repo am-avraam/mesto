@@ -19,4 +19,8 @@
     margin-left: -18px;
     width: calc(100% + 36px);
   }
+
+  .header {
+  margin-top: 28px;
+  }
 }
