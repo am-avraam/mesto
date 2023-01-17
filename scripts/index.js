@@ -13,7 +13,6 @@ const aboutTitle = document.querySelector('.profile__about')
 
 const openPopup = () => {
   popup.classList.add('popup_opened')
-  page.style.overflow = 'hidden' // инициативу проявлять запрещено? почему это лишний код?
 
   nameInput.value = nameTitle.textContent
   jobInput.value = aboutTitle.textContent
@@ -21,7 +20,6 @@ const openPopup = () => {
 
 const closePopup = () => {
   popup.classList.remove('popup_opened')
-  page.style.overflow = 'scroll'
 }
 
 function handleFormSubmit(evt) {
