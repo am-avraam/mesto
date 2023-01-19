@@ -16,3 +16,8 @@
   opacity: 1;
   background: url('./../../../images/places/activeLike.png') no-repeat;
 }
+
+.places__like_state_active {
+  opacity: 1;
+  background: url('./../../../images/places/activeLike.png') no-repeat;
+}

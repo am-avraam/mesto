@@ -26,51 +26,7 @@
         </section>
 
         <div class="places">
-          <ul class="places__list">
-            <li class="places__item">
-              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Карачаевск</p>
-                <button type="button" class="places__like"></button>
-              </div>
-            </li>
-
-            <li class="places__item">
-              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Гора Эльбрус</p>
-                <button class="places__like"></button>
-              </div>
-            </li>
-            <li class="places__item">
-              <img src="./images/places/Dombai.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Домбай</p>
-                <button class="places__like"></button>
-              </div>
-            </li>
-            <li class="places__item">
-              <img src="./images/places/Elbrus.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Гора Эльбрус</p>
-                <button class="places__like"></button>
-              </div>
-            </li>
-            <li class="places__item">
-              <img src="./images/places/Dombai.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Домбай</p>
-                <button class="places__like"></button>
-              </div>
-            </li>
-            <li class="places__item">
-              <img src="./images/places/Cerkes.png" alt="место" class="places__image" />
-              <div class="places__description">
-                <p class="places__name">Карачаево-Черкесия</p>
-                <button class="places__like"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="places__list"></ul>
         </div>
       </main>
 
@@ -91,6 +47,45 @@
       </div>
     </div>
 
+    <div class="popup popup-add">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popup-form">
+          <input name="name" type="text" class="popup__input popup__input_field_name" placeholder="Название" />
+          <input
+            name="about"
+            type="text"
+            class="popup__input popup__input_field_about"
+            placeholder="Ссылка на картинку"
+          />
+          <button type="submit" class="popup__button popup__button_save">Cоздать</button>
+        </form>
+        <button type="button" class="popup__button popup__button_close"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_overlook">
+      <div class="popup_overlook__container">
+        <button type="button" class="popup__button popup__button_close popup__button_place_overlook"></button>
+        <img src="" alt="место" class="popup__image" />
+        <p class="popup__name"></p>
+      </div>
+    </div>
+
+    <template id="place-template">
+      <li class="places__item">
+        <button class="places__delete"></button>
+        <button class="places__overlook">
+          <img src="" alt="место" class="places__image" />
+        </button>
+        <div class="places__description">
+          <p class="places__name"></p>
+          <button class="places__like"></button>
+        </div>
+      </li>
+    </template>
+
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
