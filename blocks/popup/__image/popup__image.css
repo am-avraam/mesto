@@ -1,6 +1,4 @@
 .popup__image {
-  
-  display: flex;
   align-self: center;
   object-fit: cover;
   display: block;
