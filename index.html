@@ -35,38 +35,53 @@
       </footer>
     </div>
 
-    <div class="popup">
+    <div class="popup popup-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popup-form">
-          <input name="name" type="text" class="popup__input popup__input_field_name" value="Жак-Ив Кусто" />
-          <input name="about" type="text" class="popup__input popup__input_field_about" value="Исследователь океана" />
-          <button type="submit" class="popup__button popup__button_save">Сохранить</button>
+        <form class="popup__form popup__form-profile" name="popup-form">
+          <input
+            name="name"
+            type="text"
+            class="popup__input popup__input_field_name popup__input-name"
+            value="Жак-Ив Кусто"
+          />
+          <input
+            name="about"
+            type="text"
+            class="popup__input popup__input_field_about popup__input-introduce"
+            value="Исследователь океана"
+          />
+          <button type="submit" class="popup__button popup__button_save popup__button-save-profile">Сохранить</button>
         </form>
-        <button type="button" class="popup__button popup__button_close"></button>
+        <button type="button" class="popup__button popup__button_close popup__button_close-profile"></button>
       </div>
     </div>
 
     <div class="popup popup-add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="popup-form">
-          <input name="name" type="text" class="popup__input popup__input_field_name" placeholder="Название" />
+        <form class="popup__form popup__form-card" name="popup-form">
+          <input
+            name="name"
+            type="text"
+            class="popup__input popup__input_field_name popup__input-title"
+            placeholder="Название"
+          />
           <input
             name="about"
             type="text"
-            class="popup__input popup__input_field_about"
+            class="popup__input popup__input_field_about popup__input-link"
             placeholder="Ссылка на картинку"
           />
-          <button type="submit" class="popup__button popup__button_save">Cоздать</button>
+          <button type="submit" class="popup__button popup__button_save popup__button-save-card">Cоздать</button>
         </form>
-        <button type="button" class="popup__button popup__button_close"></button>
+        <button type="button" class="popup__button popup__button_close popup__button_close-card"></button>
       </div>
     </div>
 
     <div class="popup popup_overlook">
       <div class="popup__wrapper">
-        <button type="button" class="popup__button popup__button_close popup__button_place_overlook"></button>
+        <button type="button" class="popup__button popup__button_close popup__button_close-overlook"></button>
         <img src="#" alt="место" class="popup__image" />
         <p class="popup__name"></p>
       </div>
@@ -85,7 +100,6 @@
       </li>
     </template>
 
-    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

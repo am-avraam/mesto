@@ -29,6 +29,10 @@
 
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/__button/_close/popup__button_close.css');
+@import url('../blocks/popup/__button/_close/popup__button_close.css');
+/* @import url('../blocks/popup/__button/_close/-card/'); */
+@import url('../blocks/popup/__button/_close/-overlook/popup__button_close-overlook.css');
+/* @import url('../blocks/popup/__button/_close/-profile/'); */
 @import url('../blocks/popup/__button/_save/popup__button_save.css');
 @import url('../blocks/popup/__button/popup__button.css');
 @import url('../blocks/popup/__container/popup__container.css');
@@ -39,9 +43,9 @@
 @import url('../blocks/popup/__image/popup__image.css');
 @import url('../blocks/popup/__name/popup__name.css');
 @import url('../blocks/popup/__wrapper/popup__wrapper.css');
-/* @import url('../blocks/popup/_overlook/__container/popup_overlook__container.css'); */
+
 @import url('../blocks/popup/_overlook/popup_overlook.css');
-@import url('../blocks/popup/__container/_place/_overlook/popup__container_place_overlook.css');
+
 @import url('../blocks/popup/__button/_place/_overlook/popup__button_place_overlook.css');
 
 
