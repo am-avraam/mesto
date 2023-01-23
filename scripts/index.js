@@ -60,11 +60,6 @@ const initialCards = [
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
-
-  if (popup === profilePopup) {
-    nameInput.value = nameTitle.textContent
-    jobInput.value = aboutTitle.textContent
-  }
 }
 
 const closePopup = (popup) => {
@@ -94,7 +89,7 @@ const createNewCard = ({ name, link }) => {
     overlookImage.src = link
     overlookName.textContent = name
     overlookImage.alt = name
-    overlook.classList.add('popup_opened')
+    openPopup(overlook)
   })
   return card
 }
@@ -102,7 +97,10 @@ const createNewCard = ({ name, link }) => {
 const toggleAddPopup = () => {
   placeName.value = ''
   placeSource.value = ''
-  addCardPopup.classList.toggle('popup_opened')
+
+  Array.from(addCardPopup.classList).find((el) => el === 'popup_opened')
+    ? closePopup(addCardPopup)
+    : openPopup(addCardPopup)
 }
 
 function handleFormAdd(evt) {
@@ -113,11 +111,14 @@ function handleFormAdd(evt) {
   }
 
   placeList.prepend(createNewCard(newCard))
-  // addNewCard(newCard)
   toggleAddPopup()
 }
 
-editButton.addEventListener('click', () => openPopup(profilePopup))
+editButton.addEventListener('click', () => {
+  openPopup(profilePopup)
+  nameInput.value = nameTitle.textContent
+  jobInput.value = aboutTitle.textContent
+})
 profileForm.addEventListener('submit', handleFormSubmit)
 addButton.addEventListener('click', toggleAddPopup)
 addCardForm.addEventListener('submit', handleFormAdd)
