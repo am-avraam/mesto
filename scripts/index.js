@@ -14,6 +14,7 @@ const aboutTitle = document.querySelector('.profile__about')
 const placeCard = document.querySelector('#place-template').content
 const placeList = document.querySelector('.places__list')
 const addButton = document.querySelector('.profile__button_add')
+const addCardButton = document.querySelector('.popup__button-save-card')
 
 const addCardPopup = document.querySelector('.popup-add')
 const closeAddButton = addCardPopup.querySelector('.popup__button_close')
@@ -61,10 +62,12 @@ const initialCards = [
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeByEscape)
 }
 
 const closePopup = (popup = document.querySelector('.popup_opened')) => {
   popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closeByEscape)
 }
 
 function handleFormSubmit(evt) {
@@ -72,6 +75,7 @@ function handleFormSubmit(evt) {
 
   nameTitle.textContent = nameInput.value
   aboutTitle.textContent = jobInput.value
+
   closePopup(profilePopup)
 }
 
@@ -96,8 +100,11 @@ const createNewCard = ({ name, link }) => {
 }
 
 const toggleAddPopup = () => {
-  placeName.value = ''
-  placeSource.value = ''
+  // placeName.value = ''
+  // placeSource.value = ''
+
+  addCardForm.reset()
+  setSubmitButtonState(false)
 
   Array.from(addCardPopup.classList).find((el) => el === 'popup_opened')
     ? closePopup(addCardPopup)
@@ -112,7 +119,21 @@ function handleFormAdd(evt) {
   }
 
   placeList.prepend(createNewCard(newCard))
+
   toggleAddPopup()
+}
+
+function setSubmitButtonState(isFormValid) {
+  if (!isFormValid) {
+    addCardButton.setAttribute('disabled', true)
+    addCardButton.classList.add('popup__button_inactive')
+  }
+}
+
+function closeByEscape(event) {
+  if (event.key === 'Escape') {
+    closePopup()
+  }
 }
 
 editButton.addEventListener('click', () => {
@@ -121,6 +142,10 @@ editButton.addEventListener('click', () => {
   jobInput.value = aboutTitle.textContent
 })
 profileForm.addEventListener('submit', handleFormSubmit)
+addCardForm.addEventListener('input', function (evt) {
+  const isValid = titleInput.value.length > 0 && linkInput.value.length > 0
+  setSubmitButtonState(isValid)
+})
 addButton.addEventListener('click', toggleAddPopup)
 addCardForm.addEventListener('submit', handleFormAdd)
 
@@ -138,9 +163,3 @@ popups.forEach((popup) =>
     }
   })
 )
-
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    closePopup()
-  }
-})
