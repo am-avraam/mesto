@@ -30,6 +30,7 @@ const titleInput = document.querySelector('.popup__input-title')
 const linkInput = document.querySelector('.popup__input-link')
 
 const closeButtons = document.querySelectorAll('.popup__button_close')
+const popups = Array.from(document.querySelectorAll('.popup'))
 
 const initialCards = [
   {
@@ -62,7 +63,7 @@ const openPopup = (popup) => {
   popup.classList.add('popup_opened')
 }
 
-const closePopup = (popup) => {
+const closePopup = (popup = document.querySelector('.popup_opened')) => {
   popup.classList.remove('popup_opened')
 }
 
@@ -129,3 +130,17 @@ closeButtons.forEach((button) => {
 })
 
 initialCards.forEach((el) => placeList.prepend(createNewCard(el)))
+
+popups.forEach((popup) =>
+  popup.addEventListener('click', function (event) {
+    if (!event.target.closest('.popup__container') && !event.target.closest('.popup__wrapper')) {
+      closePopup()
+    }
+  })
+)
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    closePopup()
+  }
+})
