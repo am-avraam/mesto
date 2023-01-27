@@ -1,5 +1,4 @@
 .popup__wrapper {
-    display: flex;
     justify-content: center;
     flex-direction: column;
     z-index: 3;
@@ -7,6 +6,5 @@
     position: relative;
     top: 0;
     width: fit-content;
-    height: 100%;
     margin: auto;
 }

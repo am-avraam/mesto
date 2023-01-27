@@ -38,19 +38,36 @@
     <div class="popup popup-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form popup__form-profile" name="popup-form">
-          <input
-            name="name"
-            type="text"
-            class="popup__input popup__input_field_name popup__input-name"
-            value="Жак-Ив Кусто"
-          />
-          <input
-            name="about"
-            type="text"
-            class="popup__input popup__input_field_about popup__input-introduce"
-            value="Исследователь океана"
-          />
+        <form class="popup__form popup__form-profile" name="popup-form" novalidate>
+          <label class="popup__label">
+            <input
+              name="name"
+              type="text"
+              class="popup__input popup__input_field_name popup__input-name"
+              id="popup__input_field_name"
+              value="Жак-Ив Кусто"
+              placeholder="Имя"
+              required
+              minlength="2"
+              maxlength="40"
+              id="popup__input-name"
+            />
+            <span class="popup__input-error popup__input_field_name-error popup__input-name-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              name="about"
+              type="text"
+              class="popup__input popup__input_field_about popup__input-introduce"
+              value="Исследователь океана"
+              placeholder="О себе"
+              required
+              minlength="2"
+              maxlength="200"
+              id="popup__input-introduce"
+            />
+            <span class="popup__input-error popup__input_field_about-error popup__input-introduce-error"></span>
+          </label>
           <button type="submit" class="popup__button popup__button_save popup__button-save-profile">Сохранить</button>
         </form>
         <button type="button" class="popup__button popup__button_close popup__button_close-profile"></button>
@@ -60,19 +77,31 @@
     <div class="popup popup-add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form popup__form-card" name="popup-form">
-          <input
-            name="name"
-            type="text"
-            class="popup__input popup__input_field_name popup__input-title"
-            placeholder="Название"
-          />
-          <input
-            name="about"
-            type="text"
-            class="popup__input popup__input_field_about popup__input-link"
-            placeholder="Ссылка на картинку"
-          />
+        <form class="popup__form popup__form-card" name="popup-form" novalidate>
+          <label class="popup__label">
+            <input
+              name="name"
+              type="text"
+              class="popup__input popup__input_field_name popup__input-title"
+              placeholder="Название"
+              required
+              minlength="2"
+              maxlength="30"
+              id="popup__input-title"
+            />
+            <span class="popup__input-error popup__input_field_about-error popup__input-title-error"></span>
+          </label>
+          <label class="popup__label">
+            <input
+              name="about"
+              type="url"
+              class="popup__input popup__input_field_about popup__input-link"
+              placeholder="Ссылка на картинку"
+              required
+              id="popup__input-link"
+            />
+            <span class="popup__input-error popup__input_field_about-error popup__input-link-error"></span>
+          </label>
           <button type="submit" class="popup__button popup__button_save popup__button-save-card">Cоздать</button>
         </form>
         <button type="button" class="popup__button popup__button_close popup__button_close-card"></button>
@@ -101,5 +130,6 @@
     </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
