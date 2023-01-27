@@ -26,10 +26,8 @@ const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('popup__button_inactive')
     buttonElement.disabled = true
-    // buttonElement.closest('.popup__form').disabled = true
   } else {
     buttonElement.classList.remove('popup__button_inactive')
-    // buttonElement.closest('.popup__form').disabled = false
     buttonElement.disabled = false
   }
 }
