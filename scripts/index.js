@@ -1,6 +1,8 @@
-const page = document.querySelector('html')
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
+
 const editButton = document.querySelector('.profile__button_edit')
-const closeButton = document.querySelector('.popup__button_close')
+
 const profilePopup = document.querySelector('.popup-profile')
 
 const profileForm = document.querySelector('.popup__form-profile')
@@ -17,15 +19,7 @@ const addButton = document.querySelector('.profile__button_add')
 const addCardButton = document.querySelector('.popup__button-save-card')
 
 const addCardPopup = document.querySelector('.popup-add')
-const closeAddButton = addCardPopup.querySelector('.popup__button_close')
 const addCardForm = addCardPopup.querySelector('.popup__form-card')
-
-const placeName = addCardPopup.querySelector('.popup__input_field_name')
-const placeSource = addCardPopup.querySelector('.popup__input_field_about')
-
-const overlookImage = document.querySelector('.popup__image')
-const overlookName = document.querySelector('.popup__name')
-const overlook = document.querySelector('.popup_overlook')
 
 const titleInput = document.querySelector('.popup__input-title')
 const linkInput = document.querySelector('.popup__input-link')
@@ -60,7 +54,18 @@ const initialCards = [
   },
 ]
 
-const openPopup = (popup) => {
+const validationSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_save',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
+}
+
+const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+
+export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closeByEscape)
 }
@@ -79,30 +84,7 @@ function handleFormSubmit(evt) {
   closePopup(profilePopup)
 }
 
-const createNewCard = ({ name, link }) => {
-  const card = placeCard.cloneNode(true)
-  card.querySelector('.places__image').src = link
-  card.querySelector('.places__name').textContent = name
-  card.querySelector('.places__image').alt = name
-
-  card
-    .querySelector('.places__like')
-    .addEventListener('click', (e) => e.target.classList.toggle('places__like_state_active'))
-  card.querySelector('.places__delete').addEventListener('click', (e) => e.target.closest('.places__item').remove())
-
-  card.querySelector('.places__overlook').addEventListener('click', () => {
-    overlookImage.src = link
-    overlookName.textContent = name
-    overlookImage.alt = name
-    openPopup(overlook)
-  })
-  return card
-}
-
 const toggleAddPopup = () => {
-  // placeName.value = ''
-  // placeSource.value = ''
-
   addCardForm.reset()
   setSubmitButtonState(false)
 
@@ -118,7 +100,8 @@ function handleFormAdd(evt) {
     link: linkInput.value,
   }
 
-  placeList.prepend(createNewCard(newCard))
+  const cardElement = new Card(newCard, placeCard).createNewCard()
+  placeList.prepend(cardElement)
 
   toggleAddPopup()
 }
@@ -154,7 +137,16 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup))
 })
 
-initialCards.forEach((el) => placeList.prepend(createNewCard(el)))
+initialCards.forEach((el) => {
+  const card = new Card(el, placeCard)
+  const cardElement = card.createNewCard()
+  placeList.prepend(cardElement)
+})
+
+formList.forEach((formElement) => {
+  const formValidator = new FormValidator(validationSettings, formElement)
+  formValidator.enableValidation()
+})
 
 popups.forEach((popup) =>
   popup.addEventListener('click', function (event) {
