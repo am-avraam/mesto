@@ -11,7 +11,7 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = this._templateSelector.cloneNode(true)
+    const cardElement = document.querySelector(this._templateSelector).content.cloneNode(true)
     return cardElement
   }
 
@@ -19,26 +19,32 @@ export default class Card {
     this._element = this._getTemplate()
     this._setEventListeners()
 
-    this._element.querySelector('.places__image').src = this._link
+    this._cardImage = this._element.querySelector('.places__image')
+    this._cardImage.src = this._link
     this._element.querySelector('.places__name').textContent = this._name
-    this._element.querySelector('.places__image').alt = this._name
+    this._cardImage.alt = this._name
 
     return this._element
   }
 
-  _setEventListeners() {
-    this._element
-      .querySelector('.places__like')
-      .addEventListener('click', (e) => e.target.classList.toggle('places__like_state_active'))
-    this._element
-      .querySelector('.places__delete')
-      .addEventListener('click', (e) => e.target.closest('.places__item').remove())
+  _likeToggle(e) {
+    e.target.classList.toggle('places__like_state_active')
+  }
 
-    this._element.querySelector('.places__overlook').addEventListener('click', () => {
-      overlookImage.src = this._link
-      overlookName.textContent = this._name
-      overlookImage.alt = this._name
-      openPopup(overlook)
-    })
+  _handleDeleteButton(e) {
+    e.target.closest('.places__item').remove()
+  }
+
+  _openOverlook() {
+    overlookImage.src = this._link
+    overlookName.textContent = this._name
+    overlookImage.alt = this._name
+    openPopup(overlook)
+  }
+
+  _setEventListeners() {
+    this._element.querySelector('.places__like').addEventListener('click', this._likeToggle)
+    this._element.querySelector('.places__delete').addEventListener('click', this._handleDeleteButton)
+    this._element.querySelector('.places__overlook').addEventListener('click', this._openOverlook)
   }
 }

@@ -16,7 +16,7 @@ box-sizing: border-box;
     top: 0;
     background-color: black;
     opacity: 0.5;
-    width: 1280px;
+    width: 2000px;
     height: 2000px;
     z-index: 2;
 }
