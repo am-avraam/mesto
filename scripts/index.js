@@ -65,13 +65,17 @@ const validationSettings = {
 const formEditProfile = document.querySelector('.popup__form-profile')
 const formAddCard = document.querySelector('.popup__form-card')
 
+const profileValidation = new FormValidator(validationSettings, formEditProfile)
+const newCardValidation = new FormValidator(validationSettings, formAddCard)
+profileValidation.enableValidation()
+newCardValidation.enableValidation()
+
 export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closeByEscape)
 }
 
 const closePopup = (popup) => {
-  // понял вас, спасибо за объяснение
   popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closeByEscape)
 }
@@ -85,15 +89,6 @@ function handleFormSubmit(evt) {
   closePopup(profilePopup)
 }
 
-// const toggleAddPopup = () => {
-//   addCardForm.reset()
-//   setSubmitButtonState(false)
-
-//   Array.from(addCardPopup.classList).find((el) => el === 'popup_opened')
-//     ? closePopup(addCardPopup)
-//     : openPopup(addCardPopup)
-// }
-
 function handleFormAdd(evt) {
   evt.preventDefault()
   const newCard = {
@@ -106,16 +101,15 @@ function handleFormAdd(evt) {
 
   closePopup(addCardPopup)
   addCardForm.reset()
-  setSubmitButtonState(false)
-  // понял, не прав, извините
+  newCardValidation.toggleButtonState()
 }
 
-function setSubmitButtonState(isFormValid) {
-  if (!isFormValid) {
-    addCardButton.setAttribute('disabled', true)
-    addCardButton.classList.add('popup__button_inactive')
-  }
-}
+// function setSubmitButtonState(isFormValid) {
+//   if (!isFormValid) {
+//     addCardButton.setAttribute('disabled', true)
+//     addCardButton.classList.add('popup__button_inactive')
+//   }
+// }
 
 function closeByEscape(event) {
   if (event.key === 'Escape') {
@@ -127,13 +121,14 @@ editButton.addEventListener('click', () => {
   openPopup(profilePopup)
   nameInput.value = nameTitle.textContent
   jobInput.value = aboutTitle.textContent
+  profileValidation.resetValidation()
 })
 profileForm.addEventListener('submit', handleFormSubmit)
-// addCardForm.addEventListener('input', function (evt) {
-//   const isValid = titleInput.value.length > 0 && linkInput.value.length > 0
-//   setSubmitButtonState(isValid)
-// })
-addButton.addEventListener('click', () => openPopup(addCardPopup))
+
+addButton.addEventListener('click', () => {
+  newCardValidation.resetValidation()
+  openPopup(addCardPopup)
+})
 addCardForm.addEventListener('submit', handleFormAdd)
 
 closeButtons.forEach((button) => {
@@ -146,11 +141,6 @@ initialCards.forEach((el) => {
   const cardElement = card.createNewCard()
   placeList.prepend(cardElement)
 })
-
-const profileValidation = new FormValidator(validationSettings, formEditProfile)
-const newCardValidation = new FormValidator(validationSettings, formAddCard)
-profileValidation.enableValidation()
-newCardValidation.enableValidation()
 
 popups.forEach((popup) =>
   popup.addEventListener('click', function (event) {
