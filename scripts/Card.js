@@ -11,12 +11,16 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = document.querySelector(this._templateSelector).content.cloneNode(true)
+    const cardElement = document
+      .querySelector(this._templateSelector)
+      .content.querySelector('.places__item')
+      .cloneNode(true)
     return cardElement
   }
 
   createNewCard() {
     this._element = this._getTemplate()
+    this._buttonLike = this._element.querySelector('.places__like')
     this._setEventListeners()
 
     this._cardImage = this._element.querySelector('.places__image')
@@ -28,11 +32,12 @@ export default class Card {
   }
 
   _likeToggle(e) {
-    e.target.classList.toggle('places__like_state_active')
+    this._buttonLike.classList.toggle('places__like_state_active')
   }
 
   _handleDeleteButton(e) {
-    e.target.closest('.places__item').remove()
+    this._element.remove()
+    this._element = null
   }
 
   _openOverlook() {
@@ -43,8 +48,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.places__like').addEventListener('click', this._likeToggle)
-    this._element.querySelector('.places__delete').addEventListener('click', this._handleDeleteButton)
-    this._element.querySelector('.places__overlook').addEventListener('click', this._openOverlook)
+    this._buttonLike = this._element.querySelector('.places__like')
+    this._buttonLike.addEventListener('click', (evt) => this._likeToggle(evt))
+    this._element.querySelector('.places__delete').addEventListener('click', () => this._handleDeleteButton())
+    this._element.querySelector('.places__overlook').addEventListener('click', () => this._openOverlook())
   }
 }

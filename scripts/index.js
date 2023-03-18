@@ -62,18 +62,16 @@ const validationSettings = {
   errorClass: 'popup__input-error_active',
 }
 
-const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+const formEditProfile = document.querySelector('.popup__form-profile')
+const formAddCard = document.querySelector('.popup__form-card')
 
 export const openPopup = (popup) => {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closeByEscape)
 }
 
-const closePopup = (popup = document.querySelector('.popup_opened')) => {
-  // это дефолтный параметр,
-  // который вызывается в том случае, когда я не передаю аргументов. Что в этом нерпавильного?
-  // не один ли хрен - что я передаю в вызов функции открытый попап, что функция автоматом вычисляет такой попап,
-  // когда я не передаю аргументов?
+const closePopup = (popup) => {
+  // понял вас, спасибо за объяснение
   popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closeByEscape)
 }
@@ -87,16 +85,14 @@ function handleFormSubmit(evt) {
   closePopup(profilePopup)
 }
 
-const toggleAddPopup = () => {
-  // какие действия здесь лишние? я смотрю, есть ли открытые попапы и закрываю их, если нет - открываю
-  // делается это отдельной функцией
-  addCardForm.reset()
-  setSubmitButtonState(false)
+// const toggleAddPopup = () => {
+//   addCardForm.reset()
+//   setSubmitButtonState(false)
 
-  Array.from(addCardPopup.classList).find((el) => el === 'popup_opened')
-    ? closePopup(addCardPopup)
-    : openPopup(addCardPopup)
-}
+//   Array.from(addCardPopup.classList).find((el) => el === 'popup_opened')
+//     ? closePopup(addCardPopup)
+//     : openPopup(addCardPopup)
+// }
 
 function handleFormAdd(evt) {
   evt.preventDefault()
@@ -106,11 +102,12 @@ function handleFormAdd(evt) {
   }
 
   const cardElement = new Card(newCard, '#place-template').createNewCard()
-  // стоит вызов функции createNewCard экземпляра
   placeList.prepend(cardElement)
 
-  closePopup() // так в функции дефолтный параметр находит нужный попап
-  // toggleAddPopup()
+  closePopup(addCardPopup)
+  addCardForm.reset()
+  setSubmitButtonState(false)
+  // понял, не прав, извините
 }
 
 function setSubmitButtonState(isFormValid) {
@@ -122,8 +119,7 @@ function setSubmitButtonState(isFormValid) {
 
 function closeByEscape(event) {
   if (event.key === 'Escape') {
-    closePopup() // зачем мне его искать, если функция это делает автоматически?
-    // открытым попап может быть только 1 одновременно, зачем делать лишние действия?
+    closePopup(document.querySelector('.popup_opened'))
   }
 }
 
@@ -137,7 +133,7 @@ profileForm.addEventListener('submit', handleFormSubmit)
 //   const isValid = titleInput.value.length > 0 && linkInput.value.length > 0
 //   setSubmitButtonState(isValid)
 // })
-addButton.addEventListener('click', toggleAddPopup)
+addButton.addEventListener('click', () => openPopup(addCardPopup))
 addCardForm.addEventListener('submit', handleFormAdd)
 
 closeButtons.forEach((button) => {
@@ -151,18 +147,10 @@ initialCards.forEach((el) => {
   placeList.prepend(cardElement)
 })
 
-formList.forEach((formElement) => {
-  // это ни одно ли и то же с вашим вариантом?
-  const formValidator = new FormValidator(validationSettings, formElement)
-  formValidator.enableValidation()
-})
-// если форм будет больше, то мне их все нужно будет вручную искать и энэйблить?
-// здесь я сделал то же самое - для 2-х форм - создал экземпляр, запустил валидацию
-
-// const profileValidation = new FormValidator(selectors, formEditProfile);
-// const newCardValidation = new FormValidator(selectors, formAddCard);
-// profileValidation.enableValidation();
-// newCardValidation.enableValidation();
+const profileValidation = new FormValidator(validationSettings, formEditProfile)
+const newCardValidation = new FormValidator(validationSettings, formAddCard)
+profileValidation.enableValidation()
+newCardValidation.enableValidation()
 
 popups.forEach((popup) =>
   popup.addEventListener('click', function (event) {
