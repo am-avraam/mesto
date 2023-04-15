@@ -1,3 +1,6 @@
+import Card from 'Components/Card'
+
+import { overlookPopup } from '../pages/index'
 export const editButton = document.querySelector('.profile__button_edit')
 
 export const profilePopup = document.querySelector('.popup-profile')
@@ -61,3 +64,9 @@ export const validationSettings = {
 
 export const formEditProfile = document.querySelector('.popup__form-profile')
 export const formAddCard = document.querySelector('.popup__form-card')
+
+export function createCard(item) {
+  const card = new Card(item, '#place-template', (link, name) => overlookPopup.open(link, name))
+  const cardElement = card.createNewCard()
+  return cardElement
+}

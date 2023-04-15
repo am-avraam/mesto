@@ -1,35 +1,30 @@
 import './index.css'
+import Card from 'Components/Card.js'
+import FormValidator from 'Components/FormValidator.js'
+import Section from 'Components/Section.js'
+import UserInfo from 'Components/UserInfo.js'
+import PopupWithImage from 'Components/PopupWithImage.js'
+import PopupWithForm from 'Components/PopupWithForm.js'
+
 import {
+  createCard,
   editButton,
   profileForm,
   nameInput,
   jobInput,
   nameTitle,
   aboutTitle,
-  placeList,
   addButton,
   addCardForm,
-  titleInput,
-  linkInput,
   initialCards,
   validationSettings,
-  formEditProfile,
-  formAddCard,
-} from '../utils/constants.js'
-import Card from '../scripts/Card.js'
-import FormValidator from '../scripts/FormValidator.js'
-import Section from '../scripts/Section.js'
-import UserInfo from '../scripts/UserInfo.js'
-import Popup, { PopupWithForm } from '../scripts/Popup.js'
+} from '../utils/constants'
 
 const cardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, '#place-template', () => {
-        overlookPopup.open()
-      })
-      const cardElement = card.createNewCard()
+      const cardElement = createCard(item)
       cardList.addItem(cardElement)
     },
   },
@@ -40,43 +35,46 @@ cardList.renderItems()
 
 const userInfo = new UserInfo({ name: nameTitle, personal: aboutTitle })
 
-export const overlookPopup = new Popup('.popup_overlook')
+export const overlookPopup = new PopupWithImage('.popup_overlook')
 
 overlookPopup.setEventListeners()
 
-const profilePopup = new PopupWithForm('.popup-profile')
-const addCardPopup = new PopupWithForm('.popup-add')
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault()
+  const newInfo = this._getInputValues()
+
+  this.setInputValues(newInfo)
+  userInfo.setUserInfo(newInfo)
+  this.close()
+}
+const profilePopup = new PopupWithForm('.popup-profile', handleProfileFormSubmit)
+const addCardPopup = new PopupWithForm('.popup-add', handleFormAdd)
 
 profilePopup.setEventListeners()
 addCardPopup.setEventListeners()
 
-const profileValidation = new FormValidator(validationSettings, formEditProfile)
-const newCardValidation = new FormValidator(validationSettings, formAddCard)
-profileValidation.enableValidation()
-newCardValidation.enableValidation()
+const formValidators = {}
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
 
-function handleFormSubmit(evt) {
-  evt.preventDefault()
+    const formName = formElement.getAttribute('name')
 
-  userInfo.setUserInfo({ name: nameInput.value, personal: jobInput.value })
-  profilePopup.close()
+    formValidators[formName] = validator
+    validator.enableValidation()
+  })
 }
+enableValidation(validationSettings)
 
 function handleFormAdd(evt) {
   evt.preventDefault()
-  const newCard = {
-    name: titleInput.value,
-    link: linkInput.value,
-  }
-
-  const cardElement = new Card(newCard, '#place-template', () => {
-    overlookPopup.open()
-  }).createNewCard()
-  placeList.prepend(cardElement)
+  const info = addCardPopup._getInputValues()
+  const newCard = info
+  const cardElement = createCard(newCard)
+  cardList.prependItem(cardElement)
 
   addCardPopup.close()
-  addCardForm.reset()
-  newCardValidation._toggleButtonState()
 }
 
 editButton.addEventListener('click', () => {
@@ -84,12 +82,12 @@ editButton.addEventListener('click', () => {
   const { name, personal } = userInfo.getUserInfo()
   nameInput.value = name
   jobInput.value = personal
-  profileValidation.resetValidation()
+
+  formValidators[profileForm.getAttribute('name')].resetValidation()
 })
-profileForm.addEventListener('submit', handleFormSubmit)
 
 addButton.addEventListener('click', () => {
-  newCardValidation.resetValidation()
+  formValidators[addCardForm.getAttribute('name')].resetValidation()
+
   addCardPopup.open()
 })
-addCardForm.addEventListener('submit', handleFormAdd)

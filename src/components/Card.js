@@ -1,6 +1,3 @@
-const overlookImage = document.querySelector('.popup__image')
-const overlookName = document.querySelector('.popup__name')
-
 export default class Card {
   constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name
@@ -30,7 +27,7 @@ export default class Card {
     return this._element
   }
 
-  _likeToggle(e) {
+  _toggleLike(e) {
     this._buttonLike.classList.toggle('places__like_state_active')
   }
 
@@ -39,16 +36,13 @@ export default class Card {
     this._element = null
   }
 
-  _openOverlook() {
-    overlookImage.src = this._link
-    overlookName.textContent = this._name
-    overlookImage.alt = this._name
-    this._handleCardClick()
+  _openOverlook = () => {
+    this._handleCardClick(this._link, this._name)
   }
 
   _setEventListeners() {
     this._buttonLike = this._element.querySelector('.places__like')
-    this._buttonLike.addEventListener('click', (evt) => this._likeToggle(evt))
+    this._buttonLike.addEventListener('click', (evt) => this._toggleLike(evt))
     this._element.querySelector('.places__delete').addEventListener('click', () => this._handleDeleteButton())
     this._element.querySelector('.places__overlook').addEventListener('click', () => this._openOverlook())
   }
