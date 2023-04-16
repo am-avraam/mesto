@@ -41,7 +41,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._buttonLike = this._element.querySelector('.places__like')
     this._buttonLike.addEventListener('click', (evt) => this._toggleLike(evt))
     this._element.querySelector('.places__delete').addEventListener('click', () => this._handleDeleteButton())
     this._element.querySelector('.places__overlook').addEventListener('click', () => this._openOverlook())

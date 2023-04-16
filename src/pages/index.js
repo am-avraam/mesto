@@ -39,13 +39,9 @@ export const overlookPopup = new PopupWithImage('.popup_overlook')
 
 overlookPopup.setEventListeners()
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault()
-  const newInfo = this._getInputValues()
-
-  this.setInputValues(newInfo)
+function handleProfileFormSubmit(newInfo) {
   userInfo.setUserInfo(newInfo)
-  this.close()
+  profilePopup.close()
 }
 const profilePopup = new PopupWithForm('.popup-profile', handleProfileFormSubmit)
 const addCardPopup = new PopupWithForm('.popup-add', handleFormAdd)
@@ -67,11 +63,8 @@ const enableValidation = (config) => {
 }
 enableValidation(validationSettings)
 
-function handleFormAdd(evt) {
-  evt.preventDefault()
-  const info = addCardPopup._getInputValues()
-  const newCard = info
-  const cardElement = createCard(newCard)
+function handleFormAdd(newInfo) {
+  const cardElement = createCard(newInfo)
   cardList.prependItem(cardElement)
 
   addCardPopup.close()

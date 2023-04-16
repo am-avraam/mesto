@@ -8,8 +8,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    this._inputList = this._popup.querySelectorAll('.popup__input')
-
     this._formValues = {}
 
     this._inputList.forEach((input) => {
@@ -20,18 +18,16 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners = () => {
-    this._form.addEventListener('submit', (evt) => this.handleFormSubmit(evt))
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault()
+      const newInfo = this._getInputValues()
+      this.handleFormSubmit(newInfo)
+    })
     super.setEventListeners()
   }
 
   close() {
     this._form.reset()
     super.close()
-  }
-
-  setInputValues = (data) => {
-    this._inputList.forEach((input) => {
-      input.textContent = data[input.name]
-    })
   }
 }
