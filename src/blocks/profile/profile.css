@@ -1,5 +1,6 @@
 .profile {
   margin: 0 auto;
+  position: relative;
   display: flex;
 }
 

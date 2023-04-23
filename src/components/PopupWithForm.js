@@ -2,9 +2,11 @@ import Popup from './Popup'
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitFormCallback) {
     super(popupSelector)
+
     this.handleFormSubmit = submitFormCallback
     this._form = this._popup.querySelector('form')
     this._inputList = this._popup.querySelectorAll('.popup__input')
+    this.button = this._popup.querySelector('.popup__button_save')
   }
 
   _getInputValues() {
@@ -20,14 +22,23 @@ export default class PopupWithForm extends Popup {
   setEventListeners = () => {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault()
-      const newInfo = this._getInputValues()
-      this.handleFormSubmit(newInfo)
+      if (this._popup.classList.contains('popup-update')) {
+        const newSrc = this._getInputValues()
+        this.handleFormSubmit(newSrc)
+      } else if (!this._popup.classList.contains('popup-confirmation')) {
+        let newInfo = { ...this._getInputValues(), isMyCard: true }
+        this.handleFormSubmit(newInfo)
+      } else {
+        this.handleFormSubmit(this.aimCard._id)
+      }
     })
     super.setEventListeners()
   }
 
   close() {
-    this._form.reset()
+    if (!this._popup.classList.contains('popup-confirmation')) {
+      this._form.reset()
+    }
     super.close()
   }
 }

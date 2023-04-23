@@ -15,10 +15,13 @@
 
       <main class="main">
         <section class="profile">
-          <img src="<%=require('../images/profile/avatar.png')%>" alt="ава" class="profile__avatar" />
+          <div class="profile__avatar-wrapper">
+            <img alt="ава" class="profile__avatar" />
+            <img src="<%=require('../images/profile/editAva.svg')%>" alt="редактировать аву" class="profile__edit" />
+          </div>
           <div class="profile__data-wrapper">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <h2 class="profile__about">Исследователь океана</h2>
+            <h1 class="profile__name"></h1>
+            <h2 class="profile__about"></h2>
           </div>
           <button type="button" class="profile__button profile__button_edit"></button>
           <button type="button" class="profile__button profile__button_add"></button>
@@ -114,15 +117,48 @@
       </div>
     </div>
 
+    <div class="popup popup-confirmation">
+      <div class="popup__container">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__form popup__form-confirmation" name="popup-form" novalidate>
+          <button type="submit" class="popup__button popup__button_save popup__button-confirm-delete">Да</button>
+        </form>
+        <button type="button" class="popup__button popup__button_close popup__button_close-profile"></button>
+      </div>
+    </div>
+
+    <div class="popup popup-update">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form-update" name="popup-form" novalidate>
+          <label class="popup__label">
+            <input
+              name="link"
+              type="url"
+              class="popup__input popup__input_field_name popup__input-link"
+              placeholder="Ссылка на аватар"
+              required
+              id="link-input"
+            />
+            <span class="popup__input-error link-input-error"></span>
+          </label>
+          <button type="submit" class="popup__button popup__button_save popup__button-update">Сохранить</button>
+        </form>
+        <button type="button" class="popup__button popup__button_close popup__button_close-profile"></button>
+      </div>
+    </div>
+
     <template id="place-template">
       <li class="places__item">
-        <button class="places__delete"></button>
         <button class="places__overlook">
           <img src="#" alt="место" class="places__image" />
         </button>
         <div class="places__description">
           <p class="places__name"></p>
-          <button class="places__like"></button>
+          <div class="places__like-wrapper">
+            <button class="places__like"></button>
+            <span class="places__count-like"></span>
+          </div>
         </div>
       </li>
     </template>

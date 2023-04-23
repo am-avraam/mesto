@@ -1,6 +1,7 @@
 import Card from 'Components/Card'
 
-import { overlookPopup } from '../pages/index'
+import { userInfo, API, overlookPopup, deletePopup } from '../pages/index'
+
 export const editButton = document.querySelector('.profile__button_edit')
 
 export const profilePopup = document.querySelector('.popup-profile')
@@ -22,36 +23,9 @@ export const addCardForm = addCardPopup.querySelector('.popup__form-card')
 
 export const titleInput = document.querySelector('.popup__input-title')
 export const linkInput = document.querySelector('.popup__input-link')
-
+export const profileAvatar = document.querySelector('.profile__avatar')
 export const closeButtons = document.querySelectorAll('.popup__button_close')
 export const popups = Array.from(document.querySelectorAll('.popup'))
-
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-]
 
 export const validationSettings = {
   formSelector: '.popup__form',
@@ -65,8 +39,29 @@ export const validationSettings = {
 export const formEditProfile = document.querySelector('.popup__form-profile')
 export const formAddCard = document.querySelector('.popup__form-card')
 
+function handleDeleteButtonClick() {
+  deletePopup.aimCard = this
+  deletePopup.open()
+}
+
 export function createCard(item) {
-  const card = new Card(item, '#place-template', (link, name) => overlookPopup.open(link, name))
+  const card = new Card(
+    item,
+    '#place-template',
+    (link, name) => overlookPopup.open(link, name),
+    handleDeleteButtonClick,
+    API.likeCard,
+    API.deleteLikeCard,
+    userInfo.getUserInfo().id
+  )
   const cardElement = card.createNewCard()
   return cardElement
+}
+
+export const apiConfig = {
+  baseURL: 'https://nomoreparties.co/v1/cohort-64',
+  responseType: 'json',
+  headers: {
+    Authorization: '33fbf74b-a805-4063-8711-2b52c1f91b13',
+  },
 }
