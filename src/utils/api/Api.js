@@ -1,50 +1,67 @@
-import axios from 'axios'
-
-export default axios.create({
-  baseURL: 'https://nomoreparties.co/v1/cohort-64',
-  responseType: 'json',
-  headers: {
-    Authorization: '33fbf74b-a805-4063-8711-2b52c1f91b13',
-  },
-})
-
 export class Api {
   constructor(options) {
-    this.configured = axios.create(options)
+    this._baseUrl = options.baseUrl
+    this._headers = options.headers
   }
 
   async getUser(nameSelector, avaSelector, aboutSelector) {
+    let data
     try {
-      const response = await this.configured.get('/users/me')
-      const { name, avatar, about, _id } = response.data
+      const response = await fetch(this._baseUrl + '/users/me', {
+        headers: this._headers,
+      })
+      if (response.ok) {
+        data = await response.json()
 
-      avaSelector.src = avatar
-      nameSelector.textContent = name
-      aboutSelector.textContent = about
-      return { name, _id }
+        const { name, avatar, about, _id } = data
+
+        avaSelector.src = avatar
+        nameSelector.textContent = name
+        aboutSelector.textContent = about
+        return { name, _id }
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
   }
 
   async getInitialCards(myName) {
+    let data
     try {
-      const response = await this.configured.get('/cards')
-      const initCards = response.data.map((el) => {
-        const { link, name, likes, _id } = el
-        let isMyCard = el.owner.name === myName ? true : false
-        return { link, name, likes, _id, isMyCard }
-      })
-      return initCards
+      const response = await fetch(this._baseUrl + '/cards', { headers: this._headers })
+
+      if (response.ok) {
+        data = await response.json()
+        const initCards = data.map((el) => {
+          const { link, name, likes, _id } = el
+          let isMyCard = el.owner.name === myName ? true : false
+          return { link, name, likes, _id, isMyCard }
+        })
+        return initCards
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
   }
 
   async postCard(data) {
+    let newCard
     try {
-      const { data: newCard } = await this.configured.post('/cards', { ...data })
-      return newCard
+      const response = await fetch(this._baseUrl + '/cards', {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        newCard = await response.json()
+        return newCard
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
@@ -52,7 +69,13 @@ export class Api {
 
   patchUser = async (newInfo) => {
     try {
-      await this.configured.patch('/users/me', { ...newInfo })
+      const response = await fetch(this._baseUrl + '/users/me', {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify(newInfo),
+      })
+      await response.json()
+      if (!response.ok) return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
@@ -60,7 +83,12 @@ export class Api {
 
   deleteCard = async (cardId) => {
     try {
-      await this.configured.delete(`/cards/${cardId}`)
+      const response = await fetch(this._baseUrl + `/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+
+      if (!response.ok) return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
@@ -68,8 +96,16 @@ export class Api {
 
   likeCard = async (cardId) => {
     try {
-      const { data } = await this.configured.put(`/cards/${cardId}/likes`)
-      return data.likes
+      const response = await fetch(this._baseUrl + `/cards/${cardId}/likes`, {
+        method: 'PUT',
+        headers: this._headers,
+      })
+      if (response.ok) {
+        const data = await response.json()
+        return data.likes
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
@@ -77,8 +113,16 @@ export class Api {
 
   deleteLikeCard = async (cardId) => {
     try {
-      const { data } = await this.configured.delete(`/cards/${cardId}/likes`)
-      return data.likes
+      const response = await fetch(this._baseUrl + `/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+      if (response.ok) {
+        const data = await response.json()
+        return data.likes
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }
@@ -86,10 +130,18 @@ export class Api {
 
   async changeAvatar(src) {
     try {
-      const { data } = await this.configured.patch('users/me/avatar', {
-        avatar: src,
+      const response = await fetch(this._baseUrl + '/users/me/avatar', {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({ avatar: src }),
       })
-      return data
+
+      if (response.ok) {
+        const data = await response.json()
+        return data
+      }
+
+      return Promise.reject(`Ошибка: ${response.status}`)
     } catch (error) {
       console.error(error)
     }

@@ -59,9 +59,9 @@ export function createCard(item) {
 }
 
 export const apiConfig = {
-  baseURL: 'https://nomoreparties.co/v1/cohort-64',
-  responseType: 'json',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
   headers: {
-    Authorization: '33fbf74b-a805-4063-8711-2b52c1f91b13',
+    authorization: '33fbf74b-a805-4063-8711-2b52c1f91b13',
+    'Content-Type': 'application/json',
   },
 }
