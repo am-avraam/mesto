@@ -1,7 +1,3 @@
-import Card from 'Components/Card'
-
-import { userInfo, API, overlookPopup, deletePopup } from '../pages/index'
-
 export const editButton = document.querySelector('.profile__button_edit')
 
 export const profilePopup = document.querySelector('.popup-profile')
@@ -21,6 +17,8 @@ export const addCardButton = document.querySelector('.popup__button-save-card')
 export const addCardPopup = document.querySelector('.popup-add')
 export const addCardForm = addCardPopup.querySelector('.popup__form-card')
 
+export const updateAvatarForm = document.querySelector('.popup__form-update')
+
 export const titleInput = document.querySelector('.popup__input-title')
 export const linkInput = document.querySelector('.popup__input-link')
 export const profileAvatar = document.querySelector('.profile__avatar')
@@ -38,25 +36,6 @@ export const validationSettings = {
 
 export const formEditProfile = document.querySelector('.popup__form-profile')
 export const formAddCard = document.querySelector('.popup__form-card')
-
-function handleDeleteButtonClick() {
-  deletePopup.aimCard = this
-  deletePopup.open()
-}
-
-export function createCard(item) {
-  const card = new Card(
-    item,
-    '#place-template',
-    (link, name) => overlookPopup.open(link, name),
-    handleDeleteButtonClick,
-    API.likeCard,
-    API.deleteLikeCard,
-    userInfo.getUserInfo().id
-  )
-  const cardElement = card.createNewCard()
-  return cardElement
-}
 
 export const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',

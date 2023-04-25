@@ -1,6 +1,5 @@
 class Section {
-  constructor({ data, renderer }, containerSelector) {
-    this._renderItems = data
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer
     this._container = document.querySelector(containerSelector)
   }
@@ -13,8 +12,8 @@ class Section {
     this._container.prepend(element)
   }
 
-  renderItems() {
-    this._renderItems.forEach((item) => {
+  renderItems(data) {
+    data.forEach((item) => {
       this._renderer(item)
     })
   }

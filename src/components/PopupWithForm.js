@@ -6,10 +6,10 @@ export default class PopupWithForm extends Popup {
     this.handleFormSubmit = submitFormCallback
     this._form = this._popup.querySelector('form')
     this._inputList = this._popup.querySelectorAll('.popup__input')
-    this.button = this._popup.querySelector('.popup__button_save')
+    this._button = this._popup.querySelector('.popup__button_save')
   }
 
-  _getInputValues() {
+  getInputValues() {
     this._formValues = {}
 
     this._inputList.forEach((input) => {
@@ -19,26 +19,31 @@ export default class PopupWithForm extends Popup {
     return this._formValues
   }
 
+  setButtonText(text) {
+    this._button.textContent = text
+  }
+
+  removeAimCard() {
+    this.aimCard._element.remove()
+    this.aimCard._element = null
+    this.aimCard = null
+  }
+
+  getAimCard() {
+    return this.aimCard?._id
+  }
+
   setEventListeners = () => {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault()
-      if (this._popup.classList.contains('popup-update')) {
-        const newSrc = this._getInputValues()
-        this.handleFormSubmit(newSrc)
-      } else if (!this._popup.classList.contains('popup-confirmation')) {
-        let newInfo = { ...this._getInputValues(), isMyCard: true }
-        this.handleFormSubmit(newInfo)
-      } else {
-        this.handleFormSubmit(this.aimCard._id)
-      }
+      this.handleFormSubmit()
     })
+
     super.setEventListeners()
   }
 
   close() {
-    if (!this._popup.classList.contains('popup-confirmation')) {
-      this._form.reset()
-    }
+    this._form.reset()
     super.close()
   }
 }

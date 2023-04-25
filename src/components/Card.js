@@ -5,7 +5,6 @@ export default class Card {
     handleCardClick,
     handleCardDelete,
     handleLikeRequest,
-    handleDislikeRequest,
     myId
   ) {
     this._name = name
@@ -17,7 +16,6 @@ export default class Card {
     this._handleCardClick = handleCardClick
     this._handleCardDelete = handleCardDelete
     this._handleLikeRequest = handleLikeRequest
-    this._handleDislikeRequest = handleDislikeRequest
     this.myId = myId
   }
 
@@ -33,7 +31,7 @@ export default class Card {
     this._element = this._getTemplate()
 
     if (this._isMyCard) {
-      this._element.insertAdjacentHTML('afterbegin', '<button class="places__delete"></button>')
+      this._element.querySelector('.places__delete').style.display = 'block'
     }
     this._buttonLike = this._element.querySelector('.places__like')
     this._likesCount = this._element.querySelector('.places__count-like')
@@ -51,22 +49,18 @@ export default class Card {
     return this._element
   }
 
-  _setLikesCount = (likes) => {
+  setLikesCount = (likes) => {
     this._likes = likes
     this._likesCount.textContent = this._likes.length
   }
 
   _toggleLike(e) {
-    if (this._buttonLike.classList.contains('places__like_state_active')) {
-      this._handleDislikeRequest(this._id).then(this._setLikesCount)
-    } else {
-      this._handleLikeRequest(this._id).then(this._setLikesCount)
-    }
+    this._handleLikeRequest(this._id)
     this._buttonLike.classList.toggle('places__like_state_active')
   }
 
   _handleDeleteButton(e) {
-    this._handleCardDelete(this._id)
+    this._handleCardDelete(this)
   }
 
   _openOverlook = () => {

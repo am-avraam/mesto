@@ -40,7 +40,7 @@
     <div class="popup popup-profile">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form popup__form-profile" name="popup-form" novalidate>
+        <form class="popup__form popup__form-profile" name="popup-form-profile" novalidate>
           <label class="popup__label">
             <input
               name="name"
@@ -78,7 +78,7 @@
     <div class="popup popup-add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form popup__form-card" name="popup-form" novalidate>
+        <form class="popup__form popup__form-card" name="popup-form-card" novalidate>
           <label class="popup__label">
             <input
               name="name"
@@ -130,7 +130,7 @@
     <div class="popup popup-update">
       <div class="popup__container">
         <h2 class="popup__title">Обновить аватар</h2>
-        <form class="popup__form popup__form-update" name="popup-form" novalidate>
+        <form class="popup__form popup__form-update" name="popup-form-update" novalidate>
           <label class="popup__label">
             <input
               name="link"
@@ -150,6 +150,7 @@
 
     <template id="place-template">
       <li class="places__item">
+        <button class="places__delete"></button>
         <button class="places__overlook">
           <img src="#" alt="место" class="places__image" />
         </button>

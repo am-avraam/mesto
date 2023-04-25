@@ -4,3 +4,8 @@
   min-width: 320px;
   background: black;
 }
+
+.root:has(.popup_overlook.popup_opened) {
+  position: fixed;
+  width: 100%;
+}
