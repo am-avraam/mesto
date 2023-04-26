@@ -9,10 +9,10 @@ export default class UserInfo {
     return { name: this._name.textContent, personal: this._personal.textContent, id: this._id }
   }
 
-  setUserInfo({ name, about, id, avatar }) {
+  setUserInfo({ name, about, _id, avatar }) {
     this._name.textContent = name
     this._personal.textContent = about
-    this._id = id ? id : this._id
+    this._id = _id ? _id : this._id
     this._avatar.src = avatar ? avatar : this._avatar.src
   }
 }

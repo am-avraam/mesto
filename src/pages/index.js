@@ -5,6 +5,7 @@ import Card from 'Components/Card.js'
 import UserInfo from 'Components/UserInfo.js'
 import PopupWithImage from 'Components/PopupWithImage.js'
 import PopupWithForm from 'Components/PopupWithForm.js'
+import PopupWithConfirmation from 'Components/PopupWithConfirmation.js'
 
 import {
   editButton,
@@ -91,8 +92,9 @@ function createCard(item) {
         likes = await api.likeCard(id)
       }
       card.setLikesCount(likes)
+      card.toggleLike()
     },
-    api.deleteLikeCard,
+    // api.deleteLikeCard,
     userInfo.getUserInfo().id
   )
   const cardElement = card.createNewCard()
@@ -124,7 +126,7 @@ export function handleConfirmRemoval() {
   })
 }
 
-export const deletePopup = new PopupWithForm('.popup-confirmation', handleConfirmRemoval)
+export const deletePopup = new PopupWithConfirmation('.popup-confirmation', handleConfirmRemoval)
 deletePopup.setEventListeners()
 profilePopup.setEventListeners()
 addCardPopup.setEventListeners()

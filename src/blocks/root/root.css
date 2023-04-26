@@ -6,6 +6,6 @@
 }
 
 .root:has(.popup_overlook.popup_opened) {
-  position: fixed;
-  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
 }

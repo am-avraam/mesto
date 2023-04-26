@@ -31,7 +31,7 @@ export default class Card {
     this._element = this._getTemplate()
 
     if (this._isMyCard) {
-      this._element.querySelector('.places__delete').style.display = 'block'
+      this._element.querySelector('.places__delete').classList.add('places__delete_active')
     }
     this._buttonLike = this._element.querySelector('.places__like')
     this._likesCount = this._element.querySelector('.places__count-like')
@@ -54,8 +54,12 @@ export default class Card {
     this._likesCount.textContent = this._likes.length
   }
 
-  _toggleLike(e) {
+  _setLikes() {
     this._handleLikeRequest(this._id)
+  }
+
+  toggleLike(e) {
+    // this._handleLikeRequest(this._id)
     this._buttonLike.classList.toggle('places__like_state_active')
   }
 
@@ -68,7 +72,7 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._buttonLike.addEventListener('click', (evt) => this._toggleLike(evt))
+    this._buttonLike.addEventListener('click', (evt) => this._setLikes(evt))
     if (this._isMyCard) {
       this._element.querySelector('.places__delete').addEventListener('click', () => this._handleDeleteButton())
     }

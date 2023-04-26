@@ -27,6 +27,7 @@
 @import url('../blocks/places/__count-like/places__count-like.css');
 @import url('../blocks/places/__like-wrapper/places__like-wrapper.css');
 @import url('../blocks/places/__delete/places__delete.css');
+@import url('../blocks/places/__delete/_active/places__delete_active.css');
 @import url('../blocks/places/__list/places__list.css');
 @import url('../blocks/places/__name/places__name.css');
 @import url('../blocks/places/__overlook/places__overlook.css');
