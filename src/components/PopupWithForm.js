@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
     this._button = this._popup.querySelector('.popup__button_save')
   }
 
-  getInputValues() {
+  _getInputValues() {
     this._formValues = {}
 
     this._inputList.forEach((input) => {
@@ -23,20 +23,11 @@ export default class PopupWithForm extends Popup {
     this._button.textContent = text
   }
 
-  removeAimCard() {
-    this.aimCard._element.remove()
-    this.aimCard._element = null
-    this.aimCard = null
-  }
-
-  getAimCard() {
-    return this.aimCard?._id
-  }
-
   setEventListeners = () => {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault()
-      this.handleFormSubmit()
+      const data = this._getInputValues()
+      this.handleFormSubmit(data)
     })
 
     super.setEventListeners()

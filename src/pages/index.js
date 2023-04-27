@@ -27,7 +27,7 @@ export const api = new Api(apiConfig)
 const profile = document.querySelector('.profile')
 const avaSelector = profile.querySelector('.profile__avatar')
 
-export let userInfo = new UserInfo({ name: nameTitle, personal: aboutTitle, avatar: avaSelector })
+const userInfo = new UserInfo({ name: nameTitle, personal: aboutTitle, avatar: avaSelector })
 const cardList = new Section(
   {
     renderer: (item) => {
@@ -39,17 +39,9 @@ const cardList = new Section(
 )
 Promise.all([api.getUser(), api.getInitialCards()])
   .then(([info, initialCards]) => {
-    const { name, avatar, about, _id } = info
-    userInfo.setUserInfo({ name, about, _id, avatar })
-    const myName = name
+    userInfo.setUserInfo(info)
 
-    const initCardsPrepared = initialCards.map((el) => {
-      const { link, name, likes, _id } = el
-      let isMyCard = el.owner.name === myName ? true : false
-      return { link, name, likes, _id, isMyCard }
-    })
-
-    cardList.renderItems(initCardsPrepared)
+    cardList.renderItems(initialCards)
   })
   .catch((err) => console.log(`Ошибка.....: ${err}`))
 
@@ -57,14 +49,13 @@ export const overlookPopup = new PopupWithImage('.popup_overlook')
 
 overlookPopup.setEventListeners()
 
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(newInfo) {
   profilePopup.setButtonText('Сохранение...')
-  const newInfo = profilePopup.getInputValues()
 
   api
     .patchUser(newInfo)
-    .then(() => {
-      userInfo.setUserInfo(newInfo)
+    .then((data) => {
+      userInfo.setUserInfo(data)
       profilePopup.close()
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
@@ -74,7 +65,7 @@ function handleProfileFormSubmit() {
 }
 
 function handleDeleteButtonClick(aimCard) {
-  deletePopup.aimCard = aimCard
+  deletePopup.setAimCard(aimCard)
   deletePopup.open()
 }
 
@@ -86,7 +77,8 @@ function createCard(item) {
     handleDeleteButtonClick,
     async function (id) {
       let likes
-      if (card._buttonLike.classList.contains('places__like_state_active')) {
+
+      if (card.isActiveLike()) {
         likes = await api.deleteLikeCard(id)
       } else {
         likes = await api.likeCard(id)
@@ -94,20 +86,21 @@ function createCard(item) {
       card.setLikesCount(likes)
       card.toggleLike()
     },
-    // api.deleteLikeCard,
+
     userInfo.getUserInfo().id
   )
   const cardElement = card.createNewCard()
   return cardElement
 }
 
-function handleChangeAvatarSubmit() {
+function handleChangeAvatarSubmit(data) {
   avatarUpdatePopup.setButtonText('Сохранение...')
-  const { link } = avatarUpdatePopup.getInputValues()
+
+  const { link } = data
   api
     .changeAvatar(link)
-    .then(({ avatar }) => {
-      avaSelector.src = avatar
+    .then((data) => {
+      userInfo.setUserInfo(data)
       avatarUpdatePopup.close()
     })
     .catch((err) => console.log(`Ошибка.....: ${err}`))
@@ -118,8 +111,7 @@ const profilePopup = new PopupWithForm('.popup-profile', handleProfileFormSubmit
 const addCardPopup = new PopupWithForm('.popup-add', handleFormAdd)
 const avatarUpdatePopup = new PopupWithForm('.popup-update', handleChangeAvatarSubmit)
 
-export function handleConfirmRemoval() {
-  const aimCardId = deletePopup.getAimCard()
+export function handleConfirmRemoval(aimCardId) {
   api.deleteCard(aimCardId).then(() => {
     deletePopup.removeAimCard()
     deletePopup.close()
@@ -146,9 +138,9 @@ const enableValidation = (config) => {
 }
 enableValidation(validationSettings)
 
-function handleFormAdd() {
+function handleFormAdd(newInfo) {
   addCardPopup.setButtonText('Сохранение...')
-  const newInfo = { ...addCardPopup.getInputValues(), isMyCard: true }
+
   api
     .postCard(newInfo)
     .then((card) => {

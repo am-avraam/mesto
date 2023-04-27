@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { name, link, isMyCard, likes, _id },
+    { name, link, owner: { _id: ownerId }, likes, _id },
     templateSelector,
     handleCardClick,
     handleCardDelete,
@@ -8,7 +8,7 @@ export default class Card {
     myId
   ) {
     this._name = name
-    this._isMyCard = isMyCard
+    this._isMyCard = ownerId === myId
     this._link = link
     this._likes = likes
     this._id = _id
@@ -17,6 +17,10 @@ export default class Card {
     this._handleCardDelete = handleCardDelete
     this._handleLikeRequest = handleLikeRequest
     this.myId = myId
+  }
+
+  getCardId() {
+    return this._id
   }
 
   _getTemplate() {
@@ -59,7 +63,6 @@ export default class Card {
   }
 
   toggleLike(e) {
-    // this._handleLikeRequest(this._id)
     this._buttonLike.classList.toggle('places__like_state_active')
   }
 
@@ -69,6 +72,15 @@ export default class Card {
 
   _openOverlook = () => {
     this._handleCardClick(this._link, this._name)
+  }
+
+  deleteItself() {
+    this._element.remove()
+    this._element = null
+  }
+
+  isActiveLike() {
+    return this._buttonLike.classList.contains('places__like_state_active')
   }
 
   _setEventListeners() {
