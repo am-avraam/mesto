@@ -76,15 +76,19 @@ function createCard(item) {
     (link, name) => overlookPopup.open(link, name),
     handleDeleteButtonClick,
     async function (id) {
-      let likes
+      let data
 
       if (card.isActiveLike()) {
-        likes = await api.deleteLikeCard(id)
+        data = await api.deleteLikeCard(id)
       } else {
-        likes = await api.likeCard(id)
+        data = await api.likeCard(id)
       }
-      card.setLikesCount(likes)
-      card.toggleLike()
+      try {
+        card.setLikesCount(data.likes)
+        card.toggleLike()
+      } catch (err) {
+        console.log(`Ошибка.....: ${err}`)
+      }
     },
 
     userInfo.getUserInfo().id
@@ -112,10 +116,13 @@ const addCardPopup = new PopupWithForm('.popup-add', handleFormAdd)
 const avatarUpdatePopup = new PopupWithForm('.popup-update', handleChangeAvatarSubmit)
 
 export function handleConfirmRemoval(aimCardId) {
-  api.deleteCard(aimCardId).then(() => {
-    deletePopup.removeAimCard()
-    deletePopup.close()
-  })
+  api
+    .deleteCard(aimCardId)
+    .then(() => {
+      deletePopup.removeAimCard()
+      deletePopup.close()
+    })
+    .catch((err) => console.log(`Ошибка.....: ${err}`))
 }
 
 export const deletePopup = new PopupWithConfirmation('.popup-confirmation', handleConfirmRemoval)

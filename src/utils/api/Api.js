@@ -71,7 +71,7 @@ export class Api {
 
     const data = await this._getResponseData(response)
 
-    return data.likes
+    return data
   }
 
   deleteLikeCard = async (cardId) => {
@@ -81,7 +81,7 @@ export class Api {
     })
 
     const data = await this._getResponseData(response)
-    return data.likes
+    return data
   }
 
   async changeAvatar(src) {
