@@ -77,13 +77,13 @@ function createCard(item) {
     handleDeleteButtonClick,
     async function (id) {
       let data
-
-      if (card.isActiveLike()) {
-        data = await api.deleteLikeCard(id)
-      } else {
-        data = await api.likeCard(id)
-      }
       try {
+        if (card.isActiveLike()) {
+          data = await api.deleteLikeCard(id)
+        } else {
+          data = await api.likeCard(id)
+        }
+
         card.setLikesCount(data.likes)
         card.toggleLike()
       } catch (err) {
